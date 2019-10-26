@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Тренировка знания клавиатуры</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div style="text-align: center; font-size: 5em; font-weight: bold;">
+            <span id="note"></span><br>
+    <span id="octave"></span><br>
+    <hr>
+    <span id="countdown" style="color:grey; font-weight:300"></span><br>
+    <button onclick="tempo=tempo-100"  style="color:grey; font-weight:300">-</button> <span  style="color:grey; font-weight:300" id="tempo"></span> <button  style="color:grey; font-weight:300" onclick="tempo=tempo+100">+</button>
+    </div>
+
+    <script>
+        var notes = Array(
+            "До",
+            "Ре",
+            "Ми",
+            "Фа",
+            "Соль",
+            "Ля",
+            "Си",
+        );
+       var alterations = Array(
+            "♭",
+            "♮",
+            "♯"
+       );
+        var octaves = Array(
+            "Субконтр",
+           "Контр",
+            "Большая",
+            "Малая",
+            "Первая",
+            "Вторая",
+            "Третяя",
+            "Четвертая",
+            "Пятая"
+        );
+        function gen_note(){
+            octave = octaves[Math.floor(Math.random()*octaves.length)];
+            switch (octave) {
+            case 'Субконтр':
+                note = notes[Math.floor(Math.random() * 2)+5];
+                alteration = alterations[Math.floor(Math.random() * 2)+1];
+                break;
+            case 'Пятая':
+                note = "До";
+                alteration = alterations[Math.floor(Math.random() * 2)];
+                break;
+            default:
+            note = notes[Math.floor(Math.random()*notes.length)];
+            alteration = alterations[Math.floor(Math.random()*alterations.length)];
+            }
+            $('#note').text(note+' '+alteration);
+            $('#octave').text(octave);
+        }
+        var count=1;
+        function countdown(){
+            if(count==1){
+                gen_note();
+            }
+            $('#countdown').text(count++);
+            if(count==5){
+                count=1;
+            }
+            $('#tempo').text(tempo/1000*4+'c');
+            setTimeout(countdown,tempo);
+        }
+        var tempo=1000;
+    setTimeout(countdown,tempo);
+
+    </script>
+</body>
+</html>
